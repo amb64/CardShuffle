@@ -10,7 +10,11 @@ namespace CMP1903M_A01_2223
     {
         static void Main(string[] args)
         {
-            Pack pack = new Pack();
+            Pack PackOfCards = new Pack();
+
+            Console.WriteLine("Please enter a number");
+            int Choice = Convert.ToInt32(Console.ReadLine());
+            Pack.ShuffleCardPack(Choice, PackOfCards.pack);
         }
     }
 }
