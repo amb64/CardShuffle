@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace CMP1903M_A01_2223
 {
-    class Program
+    class Program // Actually runs the program.
     {
+        public static bool TestActive { get; set; }
         static void Main(string[] args)
         {
-            Pack PackOfCards = new Pack();
+            TestActive = true; // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
+                               // Bool that tells the Menu that a test is active, and so therefore we don't need to gather user input.
 
-            Console.WriteLine("Please enter a number");
-            int Choice = Convert.ToInt32(Console.ReadLine());
-            Pack.ShuffleCardPack(Choice, PackOfCards.pack);
+            Menu menu = new Menu();
+            Testing test = new Testing(); // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
         }
     }
 }

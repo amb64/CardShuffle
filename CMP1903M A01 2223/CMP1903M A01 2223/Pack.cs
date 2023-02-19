@@ -13,14 +13,6 @@ namespace CMP1903M_A01_2223
 
         public Pack()
         {
-            // Creating a list that will store the names of Suits
-            string[] S = { "Clubs", "Diamonds", "Hearts", "Spades" };
-            List<string> Suits = new List<string>(S);
-
-            // Creating a list that will store the names of the card Values
-            string[] V = { "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
-            List<string> Values = new List<string>(V);
-
             //Initialise the card pack here
             for (int a = 0; a < 4; a++) // Iterating through the 4 suits
             {
@@ -55,7 +47,7 @@ namespace CMP1903M_A01_2223
 
             if (TypeOfShuffle == 1) // Fisher-Yates Shuffle
             {
-                Console.WriteLine("Fisher-Yates Shuffle");
+                Console.WriteLine("\nYou have chosen the Fisher-Yates Shuffle.\n");
 
                 for (int a = 0; a < 52; a++) // Iterates from 0 - 51 (the amount of cards) and increments by one for each iteration
                 {
@@ -65,57 +57,34 @@ namespace CMP1903M_A01_2223
                     pack[Num] = Temp; // Replaces the Card with the index of the randomly generated number with the card temporarily stored earlier
                 }
 
-            
-                //return true; // Returns true as the shuffle was successful
+                return true; // Returns true as the shuffle was successful
             }
+
+
             else if (TypeOfShuffle == 2) // Riffle Shuffle
             {
-                Console.WriteLine("Riffle Shuffle");
+                Console.WriteLine("\nYou have chosen the Riffle Shuffle\n");
 
                 int n = 1; // Counter for the while loop
                 while (n <= 7) // The while loop repeats 7 times as the deck must be shuffled 7 times for it to be random
                 {
                     int b = Rand.Next(0, 52); // Randomly generates a number between 1 and 52 (upper exclusive) to be used as the "midpoint", where the deck would be split into two
 
-                    Queue<Card> HalfA = new Queue<Card>();
-                    for (int a = 0; a < (b - 1); a++)
+                    Queue<Card> HalfA = new Queue<Card>(); // Creates two queues that store half of the pack of cards. The pack is split using the midpoint, b.
+                    for (int a = 0; a < b; a++) // From the first card to the card before the midpoint (the condition is a < b because the upper bound is exclusive!)
                     {
                         HalfA.Enqueue(pack[a]);
                     }
                     Queue<Card> HalfB = new Queue<Card>();
-                    for (int a = b; a < 52; a++)
+                    for (int a = b; a < 52; a++) // From the midpoint card to the end of the pack
                     {
                         HalfB.Enqueue(pack[a]);
                     }
 
-                    /*Console.WriteLine("**HALF A**");
-                    foreach (var card in HalfA)
+                    List<Card> NewPack = new List<Card>(); // A list is created to store the new, shuffled pack
+                    for (int a = 0; a < 52; a++) // This loop will dequeue a card in the relevant half and then add it to the NewPack list, alternating between halves.
                     {
-                        Console.WriteLine("Suit:" + card.Suit + "Value:" + card.Value);
-                    }
-                    Console.WriteLine("**HALF B**");
-                    foreach (var card in HalfB)
-                    {
-                        Console.WriteLine("Suit:" + card.Suit + "Value:" + card.Value);
-                    }*/
-
-                    /*int ALength = HalfA.Count();
-                    int BLength = HalfB.Count();
-                    int Length;
-
-                    if (ALength > BLength)
-                    {
-                        Length = BLength;
-                    }
-                    else
-                    {
-                        Length = ALength;
-                    }*/
-
-                    List<Card> NewPack = new List<Card>();
-                    for (int a = 0; a < 52; a++)
-                    {
-                        try
+                        try // Exceptions are used here because as the midpoint is random, one half of the deck will be bigger. If one side has run out of cards, it will not cause the program to crash
                         {
                             Card temp = HalfA.Dequeue();
                             NewPack.Add(temp);
@@ -129,34 +98,93 @@ namespace CMP1903M_A01_2223
                         catch (System.InvalidOperationException) { }
                         
                     }
+
+                    pack = NewPack; // The original pack of cards is replaced with the now shuffled NewPack list.
+                    
                     
 
-                    pack = NewPack;
-                    n++; // n is incremented
+                    n++; // n is incremented so the shuffle occurs again until it has been done 7 times.
                }
 
-           }
-
-           // For testing purposes. Prints out all the cards and the total number of cards
-           foreach (var card in pack)
-           {
-               Console.WriteLine("Suit:" + card.Suit + "Value:" + card.Value);
-           }
-           Console.WriteLine("Number of cards: " + pack.Count);
-           Console.ReadLine();
-           return true;
-       }
-
-       /*public static Card Deal()
-       {
-           //Deals one card
-
-       }
-
-       public static List<Card> DealCard(int amount)
-       {
-           //Deals the number of cards specified by 'amount'
-
-       } */
+                Menu.PackOfCards.pack = pack; // This line is required because for some reason the pack is only updated locally.
+                if (Program.TestActive == true) // If testing is active, this line is required to update the pack in the testing class.
+                {
+                    Testing.TestingPack.pack = pack;
                 }
+
+                //ViewPack(pack); // For testing.
+
+                return true; // Returns true as the shuffle was successful
+           }
+
+
+            else if (TypeOfShuffle == 3) // No shuffle
+            {
+                Console.WriteLine("\nYou have chosen to not shuffle the deck.\n");
+                return true; // Returns true as the "shuffle" was successful
             }
+
+
+            else
+            {
+                return false; // Returns false as the input was invalid.
+            }
+
+       }
+
+
+       public static Card Deal(List<Card> pack)
+       {
+            //Deals one card
+
+            try // Exceptions are used as if the deck is empty, no more cards can be dealt
+            {
+                Card DealtCard = pack.Last(); // Deals and stores the last card in the pack, to simulate taking a card off of the top of the deck
+                pack.Remove(DealtCard); // Removes the card from the pack
+
+                return DealtCard; // Returns the card that was dealt.
+            }
+            catch (System.InvalidOperationException) 
+            {
+                return null; // If no cards are left in the deck, null is returned
+            }
+        }
+
+        public static List<Card> DealCard(int amount, List<Card> pack)
+        {
+            //Deals the number of cards specified by 'amount'
+
+            List<Card> DealtCards = new List<Card>();
+
+            for (int a = 0; a < amount; a++)
+            {
+                try // Exceptions are used as if the deck is empty, no more cards can be dealt
+                {
+                    Card DealtCard = pack.Last(); // Deals and stores the last card in the pack, to simulate taking a card off of the top of the deck
+                    pack.Remove(DealtCard); // Removes the card from the pack
+
+                    DealtCards.Add(DealtCard); // Adds the dealt card to the list
+                }
+                catch (System.InvalidOperationException) { }
+            }
+
+            return DealtCards; // Returns the cards that were dealt.
+
+        }
+
+        // READ ME! Additional method created to testing purposes to print out all of the card after being shuffled.
+        public static void ViewPack(List<Card> pack)
+        {
+            // For testing purposes. Prints out all the cards and the total number of cards
+
+            foreach (var card in pack)
+            {
+                Console.WriteLine("Suit:" + card.Suit + "Value:" + card.Value);
+            }
+            Console.WriteLine("Number of cards: " + pack.Count);
+            Console.ReadLine();
+        }
+
+    }
+}
+            
