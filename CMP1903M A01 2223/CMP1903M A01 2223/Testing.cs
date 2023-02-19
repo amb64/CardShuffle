@@ -21,9 +21,9 @@ namespace CMP1903M_A01_2223
                 Pack.ShuffleCardPack(TypeOfShuffle, TestingPack.pack); // Shuffling which the type determined previously
                 //Pack.ViewPack(TestingPack.pack); // Optional. Un-commenting this line will display the full pack of cards after it has been shuffled.
 
-                Card CardDealt = Pack.Deal(TestingPack.pack);
+                Card CardDealt = Pack.Deal(TestingPack.pack); // Dealing a card, storing it, and calling Show Card
                 Menu.ShowCard(CardDealt, TestingPack.pack);
-                List<Card> CardsDealt = Pack.DealCard(Amount, TestingPack.pack);
+                List<Card> CardsDealt = Pack.DealCard(Amount, TestingPack.pack); // The same but for the amount of cards in the Amount variable.
                 Menu.ShowCards(CardsDealt, TestingPack.pack);
             }
 
