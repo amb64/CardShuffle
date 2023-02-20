@@ -29,6 +29,7 @@ namespace CMP1903M_A01_2223
 
             Program.TestActive = false;
             Console.WriteLine("END OF TEST COMMANDS");
+            Console.ReadLine();
         }   
         
     }
