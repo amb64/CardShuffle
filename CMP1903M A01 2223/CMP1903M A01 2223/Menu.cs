@@ -64,7 +64,8 @@ namespace CMP1903M_A01_2223
             }
             
         }
-
+        
+        // Encapsulation
         private static void DealSomeCards() // Asking the user how many cards they want to deal
         {
 
@@ -85,7 +86,7 @@ namespace CMP1903M_A01_2223
                             break;
                         }
                     }
-                    else if (Choice <= 52)
+                    else if (Choice <= 52 && Choice > 1)
                     {
                         List<Card> CardsDealt = Pack.DealCard(Choice, PackOfCards.pack); // Calls the method in pack to deal the specified number of cards
                         bool Result = ShowCards(CardsDealt, PackOfCards.pack); // Passes the cards to this method so they are displayed to the user
@@ -95,10 +96,11 @@ namespace CMP1903M_A01_2223
                             break;
                         }
                     }
-                    else if (Choice > 52) // Shows an error message if the user inputs a number higher than the amount of cards in the deck
+                    else // Shows an error message if the user inputs a number higher than the amount of cards in the deck, or one less than 1
                     {
-                        Console.WriteLine("\nInvalid input. You can't deal more than 52 cards.");
+                        Console.WriteLine("\nInvalid input. Please input a number between 1 and 52.");
                     }
+
               
                 }
                 catch (System.FormatException) // Shows an error message if the user doesn't input a number correctly
@@ -113,7 +115,8 @@ namespace CMP1903M_A01_2223
         {
             if (CardDealt == null) // Tells the user to reopen the program if the deck is empty
             {
-                Console.WriteLine("\nThe deck is empty.\nPlease close and re-open the program to generate a new pack of cards.");
+                Console.WriteLine("____________________________________________________________________________________");
+                Console.WriteLine("\nThe deck is empty.\nPress enter to make a new deck.");
                 Console.ReadLine();
             }
 
@@ -130,11 +133,12 @@ namespace CMP1903M_A01_2223
 
             if (Left == 0) // Will notify the user if there are no cards left in the deck.
             {
-                Console.WriteLine("\nThe deck is now empty.\nPlease close and re-open the program to generate a new pack of cards.");
+                Console.WriteLine("\nThe deck is now empty.\nPress enter to make a new deck.");
                 return false;
             }
             else
             {
+                Console.WriteLine("____________________________________________________________________________________");
                 Console.WriteLine("\n1 card was dealt.\nThere are " + Left + " cards left in the deck."); // Tells the user that one card was dealt and the amount of cards left in the deck.
                 return true;
             }
@@ -161,7 +165,8 @@ namespace CMP1903M_A01_2223
                 }
                 catch (System.InvalidOperationException) // If the deck is empty, displays a message to the user
                 {
-                    Console.WriteLine("\nThe deck is empty.\nPlease close and re-open the program to generate a new pack of cards.");
+                    Console.WriteLine("____________________________________________________________________________________");
+                    Console.WriteLine("\nThe deck is empty.\nPress enter to make a new deck.");
                     Console.ReadLine();
                 }
 
@@ -172,12 +177,14 @@ namespace CMP1903M_A01_2223
 
             if (Left == 0) // Will notify the user if there are no cards left in the deck. Will still tell them how many cards were dealt.
             {
+                Console.WriteLine("____________________________________________________________________________________");
                 Console.WriteLine("\n" + Counter + " cards were dealt.");
-                Console.WriteLine("\nThe deck is now empty.\nPlease close and re-open the program to generate a new pack of cards.");
+                Console.WriteLine("\nThe deck is now empty.\nPress enter to make a new deck.");
                 return false;
             }
             else
             {
+                Console.WriteLine("____________________________________________________________________________________");
                 Console.WriteLine("\n" + Counter + " cards were dealt.\nThere are " + Left + " cards left in the deck."); // Tells the user how many cards were dealt and the amount of cards left in the deck.
                 return true;
             }

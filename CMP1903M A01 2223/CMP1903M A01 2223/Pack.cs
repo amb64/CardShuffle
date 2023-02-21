@@ -66,7 +66,36 @@ namespace CMP1903M_A01_2223
                 Console.WriteLine("\nYou have chosen the Riffle Shuffle\n");
 
                 int n = 1; // Counter for the while loop
-                while (n <= 7) // The while loop repeats 7 times as the deck must be shuffled 7 times for it to be random
+                int Choice; // User input variable
+
+                while (true) // Infinite loop
+                {
+                    Console.WriteLine("____________________________________________________________________________________");
+                    Console.WriteLine("\nHow many times would you like to perform the Riffle Shuffle? (7 times is considered to be random.)\n");
+
+                    try
+                    {
+                        Choice = Convert.ToInt32(Console.ReadLine()); // Reads user input as an integer
+
+                        if (Choice <= 0 || Choice > 20) // If the user inputs a number less than 0 or one higher than 20, continue through the loop
+                        {
+                            Console.WriteLine("\nInvalid input. Please enter a number between 1 and 20.");
+                            continue;
+                        }
+                        else // Otherwise, break out of the loop and begin the shuffle
+                        {
+                            break;
+                        }
+                     
+                    }
+                    catch (System.FormatException) // Shows an error message if the user doesn't input a number.
+                    {
+                        Console.WriteLine("\nInvalid input. Please enter a number between 1 and 20.");
+                    }
+
+                }
+
+                while (n <= Choice) // The while loop repeats 7 times as the deck must be shuffled 7 times for it to be random
                 {
                     int b = Rand.Next(0, 52); // Randomly generates a number between 1 and 52 (upper exclusive) to be used as the "midpoint", where the deck would be split into two
 
@@ -104,7 +133,8 @@ namespace CMP1903M_A01_2223
                     
 
                     n++; // n is incremented so the shuffle occurs again until it has been done 7 times.
-               }
+
+                }
 
                 Menu.PackOfCards.pack = pack; // This line is required because for some reason the pack is only updated locally.
                 if (Program.TestActive == true) // If testing is active, this line is required to update the pack in the testing class.
@@ -114,6 +144,7 @@ namespace CMP1903M_A01_2223
 
                 //ViewPack(pack); // For testing.
 
+                Console.WriteLine("\nThe deck has been shuffled " + Choice + " times."); // Tells the user that the deck has been shuffled.
                 return true; // Returns true as the shuffle was successful
            }
 
