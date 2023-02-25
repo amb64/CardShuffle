@@ -11,14 +11,14 @@ namespace CMP1903M_A01_2223
         public static bool TestActive { get; set; }
         static void Main(string[] args)
         {
-            //TestActive = true; // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
+            TestActive = true; // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
             // Bool that tells the Menu that a test is active, and so therefore we don't need to gather user input.
 
             while (true)
             {
                 Menu menu = new Menu();
             }
-            //Testing test = new Testing(); // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
+            Testing test = new Testing(); // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
         }
     }
 }
