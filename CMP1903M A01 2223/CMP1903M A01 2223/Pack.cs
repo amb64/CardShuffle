@@ -68,32 +68,40 @@ namespace CMP1903M_A01_2223
                 int n = 1; // Counter for the while loop
                 int Choice; // User input variable
 
-                while (true) // Infinite loop
+                if (Program.TestActive == true)
                 {
-                    Console.WriteLine("____________________________________________________________________________________");
-                    Console.WriteLine("\nHow many times would you like to perform the Riffle Shuffle? (7 times is considered to be random.)\n");
-
-                    try
+                    Choice = 7;
+                }
+                else
+                {
+                    while (true) // Infinite loop
                     {
-                        Choice = Convert.ToInt32(Console.ReadLine()); // Reads user input as an integer
+                        Console.WriteLine("____________________________________________________________________________________");
+                        Console.WriteLine("\nHow many times would you like to perform the Riffle Shuffle? (7 times is considered to be random.)\n");
 
-                        if (Choice <= 0 || Choice > 20) // If the user inputs a number less than 0 or one higher than 20, continue through the loop
+                        try
+                        {
+                            Choice = Convert.ToInt32(Console.ReadLine()); // Reads user input as an integer
+
+                            if (Choice <= 0 || Choice > 20) // If the user inputs a number less than 0 or one higher than 20, continue through the loop
+                            {
+                                Console.WriteLine("\nInvalid input. Please enter a number between 1 and 20.");
+                                continue;
+                            }
+                            else // Otherwise, break out of the loop and begin the shuffle
+                            {
+                                break;
+                            }
+
+                        }
+                        catch (System.FormatException) // Shows an error message if the user doesn't input a number.
                         {
                             Console.WriteLine("\nInvalid input. Please enter a number between 1 and 20.");
-                            continue;
                         }
-                        else // Otherwise, break out of the loop and begin the shuffle
-                        {
-                            break;
-                        }
-                     
-                    }
-                    catch (System.FormatException) // Shows an error message if the user doesn't input a number.
-                    {
-                        Console.WriteLine("\nInvalid input. Please enter a number between 1 and 20.");
-                    }
 
+                    }
                 }
+                
 
                 while (n <= Choice) // The while loop repeats 7 times as the deck must be shuffled 7 times for it to be random
                 {

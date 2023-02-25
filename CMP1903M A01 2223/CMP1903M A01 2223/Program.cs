@@ -14,11 +14,14 @@ namespace CMP1903M_A01_2223
             TestActive = true; // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
             // Bool that tells the Menu that a test is active, and so therefore we don't need to gather user input.
 
+            Menu menu = new Menu();
+            Testing test = new Testing(); // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
+
             while (true)
             {
-                Menu menu = new Menu();
+                menu = new Menu();
             }
-            Testing test = new Testing(); // COMMENT THIS LINE TO REMOVE TESTING COMMANDS and play with the program yourself
+            
         }
     }
 }
