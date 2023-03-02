@@ -10,8 +10,10 @@ namespace CMP1903M_A01_2223
     {
         // Creating the pack object variable
         public static Pack PackOfCards { get; set; }
-        public static List<string> Suits { get; set; }
-        public static List<string> Values { get; set; }
+
+        // Variable encapsulation, declaring variables for the lists of Suits and Values as strings
+        private static List<string> Suits { get; set; }
+        private static List<string> Values { get; set; }
 
         public Menu()
         {
@@ -38,7 +40,8 @@ namespace CMP1903M_A01_2223
             
         }
 
-        public static void WhichShuffle() // Asks user what shuffle will be used
+        // Encapsulation
+        private static void WhichShuffle() // Asks user what shuffle will be used
         {
             while (true) // Loop that will continue until broken out of
             {

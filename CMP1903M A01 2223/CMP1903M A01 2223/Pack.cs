@@ -103,7 +103,7 @@ namespace CMP1903M_A01_2223
                 }
                 
 
-                while (n <= Choice) // The while loop repeats 7 times as the deck must be shuffled 7 times for it to be random
+                while (n <= Choice) // The while loop repeats as many times as the user has decided
                 {
                     int b = Rand.Next(0, 52); // Randomly generates a number between 1 and 52 (upper exclusive) to be used as the "midpoint", where the deck would be split into two
 
@@ -118,27 +118,49 @@ namespace CMP1903M_A01_2223
                         HalfB.Enqueue(pack[a]);
                     }
 
+                    int WhichSide = Rand.Next(0, 2); // Generates which side of the new deck will be put on top
                     List<Card> NewPack = new List<Card>(); // A list is created to store the new, shuffled pack
-                    for (int a = 0; a < 52; a++) // This loop will dequeue a card in the relevant half and then add it to the NewPack list, alternating between halves.
+
+                    if (WhichSide == 0) // First half first
                     {
-                        try // Exceptions are used here because as the midpoint is random, one half of the deck will be bigger. If one side has run out of cards, it will not cause the program to crash
+                        for (int a = 0; a < 52; a++) // This loop will dequeue a card in the relevant half and then add it to the NewPack list, alternating between halves.
                         {
-                            Card temp = HalfA.Dequeue();
-                            NewPack.Add(temp);
+                            try // Exceptions are used here because as the midpoint is random, one half of the deck will be bigger. If one side has run out of cards, it will not cause the program to crash
+                            {
+                                Card temp = HalfA.Dequeue();
+                                NewPack.Add(temp);
+                            }
+                            catch (System.InvalidOperationException) { }
+                            try
+                            {
+                                Card temp = HalfB.Dequeue();
+                                NewPack.Add(temp);
+                            }
+                            catch (System.InvalidOperationException) { }
+
                         }
-                        catch (System.InvalidOperationException) { }
-                        try
-                        {
-                            Card temp = HalfB.Dequeue();
-                            NewPack.Add(temp);
-                        }
-                        catch (System.InvalidOperationException) { }
-                        
                     }
+                    else if (WhichSide == 1) // Second half first
+                    {
+                        for (int a = 0; a < 52; a++) // This loop will dequeue a card in the relevant half and then add it to the NewPack list, alternating between halves.
+                        {
+                            try // Exceptions are used here because as the midpoint is random, one half of the deck will be bigger. If one side has run out of cards, it will not cause the program to crash
+                            {
+                                Card temp = HalfB.Dequeue();
+                                NewPack.Add(temp);
+                            }
+                            catch (System.InvalidOperationException) { }
+                            try
+                            {
+                                Card temp = HalfA.Dequeue();
+                                NewPack.Add(temp);
+                            }
+                            catch (System.InvalidOperationException) { }
+                        }
+                    }
+                    
 
                     pack = NewPack; // The original pack of cards is replaced with the now shuffled NewPack list.
-                    
-                    
 
                     n++; // n is incremented so the shuffle occurs again until it has been done 7 times.
 
