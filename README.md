@@ -1,5 +1,5 @@
-# OOP1
-OOP1
+# CardShuffle
+
 Creating pack and card classes to shuffle and deal cards.
 
 In addition to the Card, Pack, and Program classes. There is a Menu class which handles all of the user input and the command-line user interface. (User output). 
